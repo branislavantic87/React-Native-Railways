@@ -45,7 +45,7 @@ class Modall extends Component {
                 >
                     <View style={styles.aa}>
                         <TouchableWithoutFeedback onPress={() => this.closeModal()}  >
-                            <Image resizeMethod='resize' style={{ width: '100%', height: '100%', resizeMode: 'cover' }} source={{ uri: this.props.pic }} />
+                            <Image resizeMethod='scale' style={{ width: '100%', height: '100%', resizeMode: 'cover' }} source={{ uri: this.props.pic }} />
                         </TouchableWithoutFeedback>
                     </View>
                 </Modal>
