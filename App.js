@@ -91,7 +91,7 @@ export default class App extends Component {
         RNFB.fs.readFile(pathToProjectJson, 'utf8')
           .then(res => {
             const projectJsonObj = JSON.parse(res);
-            lastChangesOld = projectJsonObj.project.lastChanges;
+            lastChangesOld = projectJsonObj.lastChanges;
             if (hash(fetchedProject) == hash(projectJsonObj)) {
               console.log('hashevi projectJsona su isti!');
               global.projectJson = projectJsonObj;
@@ -173,7 +173,7 @@ export default class App extends Component {
           .then(res => {
             global.globalJson = JSON.parse(res);
 
-            if (fetchedProject.project.lastChanges == lastChangesOld) {
+            if (fetchedProject.lastChanges == lastChangesOld) {
               //if(hash(fetchedContent) == hash(global.globalJson)) {
               //global.globalJson
               console.log('usao u if od postojiContentJson()')
@@ -515,7 +515,7 @@ export default class App extends Component {
             .then(res => res.json())
             .then(res => {
               let neSkinutiFajlovi = fajlic.failedDownloads.length > 0 ? 'But there seems to be ' + fajlic.failedDownloads.length + ' missing files. If this problem persists, that means files are missing from the server. Contact your admin to fix it.' : 'Seems everything is OK. \nIf you want you can restart application anyway.';
-              if (res.project.lastChanges == global.projectJson.project.lastChanges) {
+              if (res.lastChanges == global.projectJson.lastChanges) {
                  //Alert.alert('App is already up to date!', neSkinutiFajlovi, [{ text: 'Sync', onPress: () => { RNRestart.Restart(); } }, { text: 'Cancel', onPress: () => { } }])
               }
               else {

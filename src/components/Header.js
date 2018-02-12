@@ -67,7 +67,7 @@ export default class Header extends Component {
                 .then(res => res.json())
                 .then(res => {
                   let neSkinutiFajlovi = fajlic.failedDownloads.length > 0 ? 'But there seems to be ' + fajlic.failedDownloads.length + ' missing files. If this problem persists, that means files are missing from the server. Contact your admin to fix it.' : 'Seems everything is OK. \nIf you want you can restart application anyway.';
-                  if (res.project.lastChanges == global.projectJson.project.lastChanges) {
+                  if (res.lastChanges == global.projectJson.lastChanges) {
                     Alert.alert('App is already up to date!', neSkinutiFajlovi, [{ text: 'Sync', onPress: () => { RNRestart.Restart(); } }, { text: 'Cancel', onPress: () => { } }])
                   }
                   else {
