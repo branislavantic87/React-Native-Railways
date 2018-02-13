@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     ButtonIconStyle: {
         marginRight: 10,
         width: Dimensions.get('window').width*0.02,
-        height: Dimensions.get('window').height*0.03
+        height: Dimensions.get('window').height*0.035
     },
     ButtonContent: {
         borderColor: '#fff',
