@@ -25,23 +25,23 @@ export default class DB extends Component {
 const styles = StyleSheet.create({
 
     ButtonTextStyle: {
-        fontSize: Dimensions.get('window').height*0.03,
+        fontSize: Dimensions.get('window').height * 0.03,
         color: '#fff'
     },
     ButtonIconStyle: {
         marginRight: 10,
-        width: Dimensions.get('window').width*0.02,
-        height: Dimensions.get('window').height*0.035
+        width: Dimensions.get('window').width * 0.02,
+        height: Dimensions.get('window').height * 0.035
     },
     ButtonContent: {
         borderColor: '#fff',
         borderWidth: 3,
         borderRadius: 4,
-                                 paddingHorizontal: 25,
+        paddingHorizontal: 25,
         backgroundColor: '#0082B3',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-                                 height:Dimensions.get('window').height*0.1
+        height: Dimensions.get('window').height * 0.1
     },
 });
