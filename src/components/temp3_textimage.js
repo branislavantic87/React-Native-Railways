@@ -45,14 +45,17 @@ export default class TextImage extends Component {
 
 
   renderPics(w, h) {
+
     return this.state.imagesPath.map((pic, i) => {
-        return (
-          <View key={i} style={{backgroundColor:'white', width: w, height: h}}>
-            <Modall pic={pic}>
-                <Image resizeMethod='scale' style={[styles.swiperPic, { width: w, height: h, resizeMode: 'contain', backgroundColor: 'white'}]} source={{ uri: pic }} />
-            </Modall>
-          </View>
-        );
+
+      return (
+        <View key={i} style={{ backgroundColor: 'white', width: w, height: h }}>
+          <Modall pic={pic}>
+            <Image resizeMethod='scale' style={[styles.swiperPic, { width: w, height: h, resizeMode: 'contain', backgroundColor: 'white' }]} source={{ uri: pic }} />
+          </Modall>
+        </View>
+
+      );
     })
   }
 
@@ -66,23 +69,24 @@ export default class TextImage extends Component {
 
           <View>
             <Text style={[styles.headingText, styles.headingMain]}>{this.props.templateTitle}</Text>
-            <Text style={styles.headingText}>{this.props.subtitle}</Text>
+            <Text style={styles.headingText}>{this.props.subtitle} {this.state.imagesPath.length}</Text>
           </View>
 
           <View style={styles.contentContainer}>
 
             <View style={styles.contentText}>
               <ScrollView>
-            <HTML html={this.props.text} baseFontStyle={{fontSize: Dimensions.get('window').height*0.02}}/>
-            
+                <HTML html={this.props.text} baseFontStyle={{ fontSize: Dimensions.get('window').height * 0.02 }} />
+
               </ScrollView>
             </View>
 
             <View style={styles.contentPic} onLayout={(event) => this.onLayout(event)}>
 
               <SwiperFlatList
-                showPagination
+                showPagination={this.state.imagesPath.length == 1 ? false : true}
                 paginationActiveColor={'#007AFF'}
+
 
               >
                 {this.state.dimensions && this.renderPics(this.state.dimensions.width, this.state.dimensions.height)}
@@ -116,20 +120,20 @@ const styles = StyleSheet.create({
   },
   headingText: {
     color: '#1496ba',
-    fontSize: Dimensions.get('window').height*0.03,
+    fontSize: Dimensions.get('window').height * 0.03,
     paddingBottom: 35
   },
   headingMain: {
     paddingTop: 40,
     paddingBottom: 4,
-    fontSize: Dimensions.get('window').height*0.05
+    fontSize: Dimensions.get('window').height * 0.05
   },
   contentContainer: {
     marginTop: 20,
     flexDirection: 'row',
-//    flex: 1,
+    //    flex: 1,
     width: '100%',
-    height: Dimensions.get('window').height*0.6 ,
+    height: Dimensions.get('window').height * 0.6,
     marginBottom: 25,
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
   },
   contentPic: {
     flex: 4.5,
-                                 flexDirection: 'row',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 30
