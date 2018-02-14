@@ -20,6 +20,7 @@ import DeviceInfo from 'react-native-device-info';
 import KeepAwake from 'react-native-keep-awake';
 import _ from 'lodash';
 
+
 export default class App extends Component {
 
   constructor() {
