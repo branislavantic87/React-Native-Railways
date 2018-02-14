@@ -45,6 +45,7 @@ export default class TextImage extends Component {
 
 
   renderPics(w, h) {
+
     return this.state.imagesPath.map((pic, i) => {
       return (
         <View key={i} style={{ backgroundColor: 'white', width: w, height: h }}>
@@ -81,8 +82,9 @@ export default class TextImage extends Component {
             <View style={styles.contentPic} onLayout={(event) => this.onLayout(event)}>
 
               <SwiperFlatList
-                showPagination
+                showPagination={this.state.imagesPath.length == 1 ? false : true}
                 paginationActiveColor={'#007AFF'}
+
 
               >
                 {this.state.dimensions && this.renderPics(this.state.dimensions.width, this.state.dimensions.height)}
