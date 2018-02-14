@@ -3,6 +3,7 @@ package com.railways;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnative.photoview.PhotoViewPackage;
 import com.corbt.keepawake.KCKeepAwakePackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PhotoViewPackage(),
             new KCKeepAwakePackage(),
             new ReactNativeRestartPackage(),
             new RNDeviceInfo(),

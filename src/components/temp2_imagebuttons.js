@@ -51,7 +51,7 @@ export default class ImageButtons extends Component {
                     {console.log(aspectRatio)}
                         {aspectRatio < 0.6 ? 
                         <View style={styles.contentPic}>
-                            <Modall>
+                            <Modall image ={this.state.image}>
                                 <Image resizeMethod='scale' style={{width: '100%', height: '100%', resizeMode: 'cover', backgroundColor: 'white' }} source={{ uri: this.state.image }}/>
                             </Modall>
                        
