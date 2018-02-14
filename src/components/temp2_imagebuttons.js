@@ -49,7 +49,7 @@ export default class ImageButtons extends Component {
 
                         <View style={styles.contentPic}>
                             <Modall>
-                              <Image resizeMethod='scale' style={{width: '100%', height: '100%', resizeMode: 'cover' }} source={{ uri: this.state.image }}/>
+                              <Image resizeMethod='scale' style={{width: '100%', height: '100%', resizeMode: 'contain' }} source={{ uri: this.state.image }}/>
                             </Modall>
                        
                             <View style={styles.ButtonContainer}>
