@@ -48,7 +48,7 @@ export default class ImageButtons extends Component {
                     </View>
 
                     <View style={styles.contentContainer}>
-                    {console.log(aspectRatio)}
+                    
                         {aspectRatio < 0.6 ? 
                         <View style={styles.contentPic}>
                             <Modall>

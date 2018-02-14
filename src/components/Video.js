@@ -9,15 +9,13 @@ export default class VideoView extends Component {
     render() {
 
         return (
-            <View style={styles.mainView}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-start' }}>
-                    <TouchableOpacity onPress={() => Actions.pop()}><Image style={styles.ico} source={require('./ico/32/back.png')} /></TouchableOpacity>
-                </View>
+            
 
-                <View style={{ flex: 12 }}>
+                <View style={{ flex: 1 }}>
                     <VideoPlayer
                         source={{ uri: this.props.videouri }}   // Can be a URL or a local file.
                         controlTimeout={ 2000 }
+                        navigator={ () => {} }
                         onBack={ () => Actions.pop() }
                         // Store reference
                         rate={1.0}                              // 0 is paused, 1 is normal.
@@ -40,7 +38,7 @@ export default class VideoView extends Component {
                         style={{ width: '100%', height: '100%' }} />
                 </View>
 
-            </View>
+            
 
         );
     }

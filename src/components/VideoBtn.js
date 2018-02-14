@@ -8,7 +8,7 @@ export default class VB extends Component {
     render() {
 
         return (
-            
+
             <View style={{ marginRight: 15 }}>
 
                 <TouchableOpacity style={styles.ButtonContent} onPress={() => Actions.VideoView({ videouri: this.props.videouri })}>
@@ -27,13 +27,13 @@ export default class VB extends Component {
 const styles = StyleSheet.create({
 
     ButtonTextStyle: {
-        fontSize: Dimensions.get('window').height*0.03,
+        fontSize: Dimensions.get('window').height * 0.03,
         color: '#fff'
     },
     ButtonIconStyle2: {
         marginRight: 10,
-        width: Dimensions.get('window').width*0.02,
-        height: Dimensions.get('window').height*0.03
+        width: Dimensions.get('window').width * 0.02,
+        height: Dimensions.get('window').height * 0.03
     },
     ButtonContent: {
         borderColor: '#fff',
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-                                 height:Dimensions.get('window').height*0.1
+        height: Dimensions.get('window').height * 0.097
     },
 });
