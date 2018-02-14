@@ -69,7 +69,7 @@ export default class TextImage extends Component {
 
           <View>
             <Text style={[styles.headingText, styles.headingMain]}>{this.props.templateTitle}</Text>
-            <Text style={styles.headingText}>{this.props.subtitle} {this.state.imagesPath.length}</Text>
+            <Text style={styles.headingText}>{this.props.subtitle}</Text>
           </View>
 
           <View style={styles.contentContainer}>
