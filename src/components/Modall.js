@@ -43,14 +43,18 @@ class Modall extends Component {
                     animationType={'fade'}
                     supportedOrientations={['landscape']}
                     presentationStyle={'fullScreen'}
+
                 >
                     <View style={styles.aa}>
-                        <TouchableWithoutFeedback onPress={() => this.closeModal()}  >
-                            <ImageZoom 
+                        <TouchableWithoutFeedback >
+                            <ImageZoom
                                 cropWidth={Dimensions.get('window').width}
                                 cropHeight={Dimensions.get('window').height}
                                 imageWidth={Dimensions.get('window').width}
-                                imageHeight={Dimensions.get('window').height}>
+                                imageHeight={Dimensions.get('window').height}
+                                doubleClickInterval={175}
+                                onClick={() => this.closeModal()}
+                            >
                                 <Image resizeMethod='resize' style={{ width: '100%', height: '100%', resizeMode: 'contain', backgroundColor: 'white' }} source={{ uri: this.props.pic }} />
                             </ImageZoom>
                         </TouchableWithoutFeedback>
@@ -65,17 +69,18 @@ class Modall extends Component {
                     visible={this.state.modalVisible}
                     animationType={'fade'}
                     supportedOrientations={['landscape']}
-                >
+                    presentationStyle={'fullScreen'}>
                     <View style={styles.aa}>
-                        <TouchableWithoutFeedback onPress={() => this.closeModal()}>
-                        {/* Namestiti on clicl close!!!! */}
-                        <ImageZoom 
-                                onPress={() => this.closeModal()}
+                        <TouchableWithoutFeedback >
+                            <ImageZoom
                                 cropWidth={Dimensions.get('window').width}
                                 cropHeight={Dimensions.get('window').height}
                                 imageWidth={Dimensions.get('window').width}
-                                imageHeight={Dimensions.get('window').height}>
-                            {this.props.children}
+                                imageHeight={Dimensions.get('window').height}
+                                doubleClickInterval={175}
+                                onClick={() => this.closeModal()}
+                            >
+                                {this.props.children}
                             </ImageZoom>
                         </TouchableWithoutFeedback>
                     </View>
