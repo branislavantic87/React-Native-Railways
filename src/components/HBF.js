@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, Image, Text, Settings } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text, Settings, TouchableWithoutFeedback } from 'react-native';
+import Modal from 'react-native-modal';
 import Header from './Header';
 import Footer from './Footer';
 import MenuList from './MenuList';
@@ -16,21 +17,21 @@ class HBF extends Component {
         visibleSearch: false,
         visiblelanguage: false,
         visiblesettings: false,
-        languangeId: 0
     }
     openVideos = () => {
         Alert.alert('Otvorili ste meni za izbor video snimaka.')
     };
 
-    render() {
-    
-        return (
 
+
+    render() {
+        return (
             <View>
-                <Header title={this.props.from.title} 
-                onPressLang={() => { this.state.visiblelanguage ? this.setState({ visiblelanguage: false }) : this.setState({ visiblelanguage: true, visibleMenu: false, visibleSearch: false, visiblesettings: false }) }} 
-                onPress={() => { this.state.visibleSearch ? this.setState({ visibleSearch: false }) : this.setState({ visibleSearch: true, visibleMenu: false, visiblelanguage: false, visiblesettings: false  }) }} 
-                onPressSettings={() => { this.state.visiblesettings ? this.setState({ visiblesettings: false }) : this.setState({ visiblesettings: true, visibleMenu: false, visibleSearch: false, visiblelanguage: false  }) }} />
+                {this.state.visibleMenu && <TouchableWithoutFeedback onPress={() => this.setState({ visibleMenu: false })} ><View style={{ backgroundColor: 'black', opacity: 0.3, position: 'absolute', top: 0, zIndex: 5, height: '93%', width: '100%'}}></View></TouchableWithoutFeedback>}
+                <Header title={this.props.from.title}
+                    onPressLang={() => { this.state.visiblelanguage ? this.setState({ visiblelanguage: false }) : this.setState({ visiblelanguage: true, visibleMenu: false, visibleSearch: false, visiblesettings: false }) }}
+                    onPress={() => { this.state.visibleSearch ? this.setState({ visibleSearch: false }) : this.setState({ visibleSearch: true, visibleMenu: false, visiblelanguage: false, visiblesettings: false }) }}
+                    onPressSettings={() => { this.state.visiblesettings ? this.setState({ visiblesettings: false }) : this.setState({ visiblesettings: true, visibleMenu: false, visibleSearch: false, visiblelanguage: false }) }} />
 
                 {this.state.visiblelanguage &&
                     <Languages />
@@ -42,18 +43,16 @@ class HBF extends Component {
                     <SettingsComponent />
                 }
 
-
                 <Body pages={this.props.filtered} />
 
-
-                <View style={{ position: 'absolute', bottom: this.state.visibleMenu ? '7%' : -500, width: '100%' }}>
+            
+                <View style={{ position: 'absolute', zIndex: 6, bottom: '7%', height: this.state.visibleMenu ? undefined : 0, width: '100%' }}>
                     <MenuList selected={this.props.selected} data={global.globalJson} from={this.props.from.menuId} />
                 </View>
-
                 <Footer onPress={() => { this.state.visibleMenu ? this.setState({ visibleMenu: false }) : this.setState({ visibleMenu: true }); }} />
-
             </View>
         );
+
     }
 
 }
@@ -82,13 +81,37 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     content2: {
-
         justifyContent: 'flex-start',
         marginLeft: '15%',
-
     },
 
 });
 
 export default HBF;
+
+
+/*
+
+                    <View style={{ position: 'absolute', bottom: this.state.visibleMenu ? '7%' : -500, width: '100%' }}>
+                        <MenuList selected={this.props.selected} data={global.globalJson} from={this.props.from.menuId} />
+                    </View>
+
+
+*/
+
+
+/*
+                <Modal
+                    isVisible={ this.state.visibleMenu }
+                    onBackdropPress={ () => this.setState({ visibleMenu: false }) }
+                    backdropOpacity={0}
+                    useNativeDriver={true}
+                    animationType={'none'}
+                    style={{ position: 'absolute', left: 0, right: 0, bottom: 0, width: '100%' }}
+                >
+                    <MenuList selected={this.props.selected} data={global.globalJson} from={this.props.from.menuId} />
+                </Modal>
+
+
+*/
 

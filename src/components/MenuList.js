@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, InteractionManager } from 'react-native';
 import Menu1 from './Menu1';
 import Menu2 from './Menu2';
+
+const menu1Width = 300;
+const menu1scrollAwayFactor = 1.5;
+const menu2Width = 200;
 
 
 class MenuList extends React.PureComponent {
@@ -14,14 +18,7 @@ class MenuList extends React.PureComponent {
         fromObj: {}
     };
 
-    componentDidMount() {
-        //this.refs._scrollView1.scrollTo({ y: 0, x:  });
-        //this.calculateMenu1();
-        //this.refs._scrollView1.scrollTo({y:30, x: 30, animated: true});
-        //if (this.props.from)
-            this.chooseSelected(this.state.fromObj);
 
-    }
     componentWillMount() {
         // this.setState({menus: this.props.data.menuTrees[this.props.a-1].menuTree});
         this.setState({
@@ -29,51 +26,23 @@ class MenuList extends React.PureComponent {
                 o.menuId == this.props.from
             )
         });
-    } 
+    }
 
     chooseSelected(m) {
-        // this.props.from
-        
         if (m.parentId == 0) {
-            
             this.state.menus.map((cale, i) => {
                 if (cale.menuId == m.menuId) {
-                    
                     this.setState({ selected: i })
                 }
             })
         }
         else {
-            
             let a = global.globalJson.menus[global.language].menu.find(x => x.menuId == m.parentId);
             this.chooseSelected(a)
         }
     }
 
-
-
-
-    calculateMenu1() {
-        for (let i = 0, l = this.state.menus.length; i < l; i++) {
-            if (this.state.selected == i) {
-                this.refs['_menu1' + i].measure(
-                    (fx, fy, width, height, px, py) => {
-
-                        console.log('Component width is: ' + width)
-                        console.log('Component height is: ' + height)
-                        console.log('X offset to frame: ' + fx)
-                        console.log('Y offset to frame: ' + fy)
-                        console.log('X offset to page: ' + px)
-                        console.log('Y offset to page: ' + py)
-                    })
-
-            }
-        }
-    }
-
-
     componentDidUpdate() {
-
         this.refs._scrollView2.scrollTo({ y: 0, x: 0, animated: true });
     }
 
@@ -84,7 +53,6 @@ class MenuList extends React.PureComponent {
                 isPressed={this.state.selected == i ? true : false}
                 key={menu.menuId}
                 menu1={menu}
-
             />
         );
     }
@@ -108,16 +76,68 @@ class MenuList extends React.PureComponent {
         }
     }
 
+    findMenu(menuIdS) {
+        let menus = global.globalJson.menuTrees[global.language].menuTree;
+        let found = {};
+    
+        for (let i = 0; i < menus.length; i++) {
+          if (menus[i].menuId == menuIdS) { found = menus[i]; break; }
+          else {
+            if (menus[i].children)
+              for (let j = 0; j < menus[i].children.length; j++) {
+                if (menus[i].children[j].menuId == menuIdS) { found = menus[i].children[j]; break; }
+                else {
+                  if (menus[i].children[j].children) {
+                    for (let k = 0; k < menus[i].children[j].children.length; k++) {
+                      if (menus[i].children[j].children[k].menuId == menuIdS) { found = menus[i].children[j].children[k]; break; }
+                    }
+                  }
+                }
+              }
+          }
+        }
+        return found;
+      }
+
+
+
+    findMenu2Index = (m, searchMenu) => {
+        if (m.parentId == 0) {
+            m = this.findMenu(m.menuId);
+            return m.children.findIndex(m2 => m2.menuId == searchMenu.menuId);
+            
+        }
+        else {
+            let a = global.globalJson.menus[global.language].menu.find(x => x.menuId == m.parentId);
+            return this.findMenu2Index(a, m);
+        }
+    }
+
+    componentDidMount() {
+        this.chooseSelected(this.state.fromObj);
+        let menu2Obj = this.findMenu(this.props.from);
+        let menu2Index = this.findMenu2Index(menu2Obj, menu2Obj);
+        setTimeout(() => {
+            this.refs._scrollView1.scrollTo({ y: 0, x: this.state.selected * menu1Width - (menu1Width * menu1scrollAwayFactor), animated: true });
+            this.refs._scrollView2.scrollTo({ y: 0, x: menu2Index*menu2Width, animated: true });
+        }, 1)
+    }
+
     render() {
-        
+
         return (
 
             <View style={styles.mainCont}>
-                <ScrollView ref='_scrollView1' horizontal={true} style={styles.menu1Container} showsHorizontalScrollIndicator={false}>
+                <ScrollView ref={'_scrollView1'} horizontal={true} style={styles.menu1Container} showsHorizontalScrollIndicator={false}>
                     {this.renderMenus1()}
                 </ScrollView>
 
-                <ScrollView ref='_scrollView2' showsHorizontalScrollIndicator={false} horizontal={true} style={{ flexDirection: 'row' }}>
+                <ScrollView
+                    ref={'_scrollView2'}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal={true}
+                    style={{ flexDirection: 'row' }}
+                >
                     {this.renderMenus2()}
                 </ScrollView>
             </View>
@@ -136,7 +156,6 @@ const styles = {
         position: 'relative',
         height: '100%',
         width: '100%',
-        zIndex: 4
         //bottom: '7%'
     }
 }
